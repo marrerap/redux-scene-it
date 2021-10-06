@@ -1,22 +1,13 @@
+function favorites(state = [], action) {
+  switch (action.type) {
+    case "SAVE_MOVIE":
+      return [...state, action.movie];
 
-const defaultState = {
-    movies: []
-}
+    case "REMOVE_MOVIE":
+      return [...state.filter((movie) => movie.imdbID !== action.movie.imdbID)]
 
-function favorites(state = defaultState, action) {
-    switch (action.type) {
-        case 'SAVE_MOVIE':
-          return {
-            movies: [ ...state.movies, action.movie ]
-          }
-          case 'REMOVE_MOVIE':
-            return {
-              movies: [ ...state.movies.filter((movie) => {
-                return movie.imdbID !== action.movie.imdbID
-              })]
-            }
-        default:
-          return state
-      }
+    default:
+      return state;
+  }
 }
-export default favorites
+export default favorites;

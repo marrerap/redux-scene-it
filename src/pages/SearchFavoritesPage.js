@@ -4,7 +4,7 @@ import { Button, Card, Container } from "react-bootstrap";
 import { useSelector } from 'react-redux'
 import { actionRemoveMovie} from "../redux/actions/Favorites";
 import { useDispatch } from "react-redux";
-
+import { actionSetSearch } from '../redux/actions/SearchFavorites'
 
 
 function FavoritesPage() {
@@ -15,20 +15,40 @@ function FavoritesPage() {
   const handleRemove = (movie) => {
     dispatch(actionRemoveMovie(movie));
   };
+  const search = useSelector((state) => state.search);
+  
+  const filteredFavorites = movies.filter((movie) => {
+    return movie.Title.includes(search);
+  });
 
 
- 
+  const handleClear = (e) => {
+    e.preventDefault();
+    dispatch(actionSetSearch(""));
+  };
 
   return (
     <div>
       <Header />
-      <h1>Your Favorite Movies</h1>     
+      <h1>Your Favorite Movies</h1>
+      <label for="favSeach">
+        Search Favorites: &nbsp;
+        <input
+          require
+          id="favSearch"
+          value={search}
+          onChange={(e) => dispatch(actionSetSearch(e.target.value))}
+        />
+      </label>
+      <button onClick={handleClear} type="reset">
+        Clear
+      </button>
       <Container>
         <div
           className="row justify-content-between "
           style={{ display: "flex" }}
         >
-          {movies.map((movie, index) => {
+          {filteredFavorites.map((movie, index) => {
             return (
               <div className="col-sm justify-content-center">
                 <Card key={index} style={{ width: "18rem", height: '100%' }}>

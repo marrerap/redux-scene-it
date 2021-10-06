@@ -20,7 +20,7 @@ function Header() {
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>              
               <Link className='' style={linkStyle} to='/favorites'>Favorites</Link>
-              
+              <Link className='' style={linkStyle} to='/favoritesSearch'>Search Favorites</Link>
               
             </Nav>
           </Navbar.Collapse>
